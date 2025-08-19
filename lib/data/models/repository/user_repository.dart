@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_blog/_core/utils/my_http.dart';
 import 'package:logger/logger.dart';
-import 'package:flutter/material.dart';
 
 class UserRepository {
   // 회원 가입 요청 - post 요청
@@ -25,13 +24,31 @@ class UserRepository {
   }
 
   // 로그인 요청
+  Future<Map<String, dynamic>> login(String username, String password) async {
+    final requestBody = {
+      "username": username,
+      "password": password,
+    };
 
-  // 자동 로그인
+    Response response = await dio.post("/login", data: requestBody);
 
-// UserRepository().join();
-}
+    Map<String, dynamic> responseBody = response.data;
+    // 개발 로깅용
+    Logger().d(responseBody);
+    return responseBody;
+  }
 
-void main() {
-  // Android 9 버전 이후부터 통신은 HTTPS 만 허용하게 기본 설정 됨
-  UserRepository().join('test555', 't2@nate.com', '1234');
+  // 자동 로그인 - 토큰 값이 유효하다면
+  Future<Map<String, dynamic>> autoLogin(String accessToken) async {
+    Response response = await dio.post(
+      "/auto/login",
+      options: Options(
+        headers: {"Authorization": accessToken},
+      ),
+    );
+
+    Map<String, dynamic> responseBody = response.data;
+    Logger().e(responseBody);
+    return responseBody;
+  }
 }
