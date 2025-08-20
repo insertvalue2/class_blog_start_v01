@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_blog/_core/utils/my_http.dart';
+import 'package:flutter_blog/main.dart';
 import 'package:logger/logger.dart';
 
 class UserRepository {
@@ -19,6 +21,7 @@ class UserRepository {
     // 3. 응답 처리
     final responseBody = response.data; // body 데이터 모두
     Logger().d(responseBody); // 개발용 로깅 처리
+
     // 4. 리턴
     return requestBody;
   }
