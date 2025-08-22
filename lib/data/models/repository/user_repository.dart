@@ -23,7 +23,7 @@ class UserRepository {
     Logger().d(responseBody); // 개발용 로깅 처리
 
     // 4. 리턴
-    return requestBody;
+    return responseBody;
   }
 
   // 로그인 요청
