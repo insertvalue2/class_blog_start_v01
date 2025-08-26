@@ -3,6 +3,7 @@ import 'package:flutter_blog/_core/utils/exception_handler.dart';
 import 'package:flutter_blog/data/models/post.dart';
 import 'package:flutter_blog/data/models/repository/post_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
 class PostListModel {
   bool isFirst;
@@ -98,6 +99,12 @@ class PostListNotifier extends Notifier<PostListModel?> {
     } else {
       return {"success": false};
     }
+  }
+
+  // 게시글 목록 새로 고침 기능 추가
+  Future<void> refreshAfterWriter() async {
+    Logger().d("게시글 작성 후 목록 새로고침 시작");
+    await fetchPosts(page: 0);
   }
 }
 
