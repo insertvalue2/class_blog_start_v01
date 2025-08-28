@@ -42,7 +42,7 @@ class LoginModel {
 } // end of LoginModel class
 
 // 창고 메뉴얼 설계
-class LoginFormNotifier extends Notifier<LoginModel> {
+class LoginFormNotifier extends AutoDisposeNotifier<LoginModel> {
   @override
   LoginModel build() {
     return LoginModel("", "", "", "");
@@ -82,7 +82,8 @@ class LoginFormNotifier extends Notifier<LoginModel> {
 
 // 실제 창고를 메모리에 올리자 - 전역 변수로 관리
 final loginFormProvider =
-    NotifierProvider<LoginFormNotifier, LoginModel>(() => LoginFormNotifier());
+    AutoDisposeNotifierProvider<LoginFormNotifier, LoginModel>(
+        () => LoginFormNotifier());
 // loginFormProvider --> LoginFormNotifier() --> LoginModel()
 // ref.read(loginFormProvider);    --> LoginModel()
 // ref.read(loginFormProvider.notifier); --> LoginFormNotifier()
